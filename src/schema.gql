@@ -10,6 +10,11 @@ type User {
   role: String
 }
 
+type LoginRespose {
+  access_token: String!
+  user: User!
+}
+
 type Course {
   id: Float!
   title: String!
@@ -40,6 +45,7 @@ type Mutation {
   updateCourse(updateCourseInput: UpdateCourseInput!): Course!
   removeCourse(id: Int!): Course!
   makeUser(createUserInput: CreateUserInput!): User!
+  login(loginUserInput: LoginUserInput!): LoginRespose!
 }
 
 input CreateInstructorDto {
@@ -67,4 +73,9 @@ input CreateUserInput {
   email: String!
   password: String!
   role: String
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
 }
