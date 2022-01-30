@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type User {
+  id: Int!
+  name: String!
+  email: String!
+  password: String!
+  role: String
+}
+
 type Course {
   id: Float!
   title: String!
@@ -22,6 +30,8 @@ type Query {
   getSingleInstructor(id: Float!): Instructor!
   getAllCourses: [Course!]!
   getSingleCourse(id: Float!): Course!
+  getAllUsers: [User!]!
+  getSingleUser(email: String!): User!
 }
 
 type Mutation {
@@ -29,6 +39,7 @@ type Mutation {
   createCourse(createCourseInput: CreateCourseInput!): Course!
   updateCourse(updateCourseInput: UpdateCourseInput!): Course!
   removeCourse(id: Int!): Course!
+  makeUser(createUserInput: CreateUserInput!): User!
 }
 
 input CreateInstructorDto {
@@ -49,4 +60,11 @@ input UpdateCourseInput {
   price: Float!
   instructorId: Float
   id: Int!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+  role: String
 }
