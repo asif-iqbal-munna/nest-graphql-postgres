@@ -1,0 +1,52 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Course {
+  id: Float!
+  title: String!
+  duration: String!
+  price: Float!
+  instructor: Instructor
+}
+
+type Instructor {
+  id: Int!
+  name: String!
+  position: String!
+  courses: [Course!]
+}
+
+type Query {
+  getAllInstructors: [Instructor!]!
+  getSingleInstructor(id: Float!): Instructor!
+  getAllCourses: [Course!]!
+  getSingleCourse(id: Float!): Course!
+}
+
+type Mutation {
+  makeInstructor(instructorInput: CreateInstructorDto!): Instructor!
+  createCourse(createCourseInput: CreateCourseInput!): Course!
+  updateCourse(updateCourseInput: UpdateCourseInput!): Course!
+  removeCourse(id: Int!): Course!
+}
+
+input CreateInstructorDto {
+  name: String!
+  position: String!
+}
+
+input CreateCourseInput {
+  title: String!
+  duration: String!
+  price: Float!
+  instructorId: Float!
+}
+
+input UpdateCourseInput {
+  title: String!
+  duration: String!
+  price: Float!
+  instructorId: Float
+  id: Int!
+}
