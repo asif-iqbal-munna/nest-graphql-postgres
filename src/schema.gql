@@ -44,8 +44,8 @@ type Mutation {
   createCourse(createCourseInput: CreateCourseInput!): Course!
   updateCourse(updateCourseInput: UpdateCourseInput!): Course!
   removeCourse(id: Int!): Course!
-  makeUser(createUserInput: CreateUserInput!): User!
   login(loginUserInput: LoginUserInput!): LoginRespose!
+  makeUser(createUserInput: CreateUserInput!): LoginRespose!
 }
 
 input CreateInstructorDto {
@@ -68,14 +68,14 @@ input UpdateCourseInput {
   id: Int!
 }
 
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
 input CreateUserInput {
   name: String!
   email: String!
   password: String!
   role: String
-}
-
-input LoginUserInput {
-  email: String!
-  password: String!
 }

@@ -1,5 +1,6 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { CreateUserInput } from './dto/create-user.input';
+import { UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Args, Context, Query, Resolver } from '@nestjs/graphql';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 
@@ -7,14 +8,14 @@ import { UsersService } from './users.service';
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
-  @Mutation(() => User, { name: 'makeUser' })
-  createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return this.usersService.create(createUserInput);
-  }
-
   @Query(() => [User], { name: 'getAllUsers' })
-  findAll() {
-    return this.usersService.findAll();
+  @UseGuards(JwtAuthGuard)
+  findAll(@Context() context) {
+    const user = context.req.user;
+    if (user.role === 'admin') {
+      return this.usersService.findAll();
+    }
+    throw new UnauthorizedException();
   }
 
   @Query(() => User, { name: 'getSingleUser' })
